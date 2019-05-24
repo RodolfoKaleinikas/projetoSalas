@@ -1,0 +1,150 @@
+* {
+  margin: none;
+  padding: none;
+  box-sizing: border-box;
+}
+
+body {
+  background: #444;
+  font-family: monospace;
+  color: white;
+  margin: none;
+  padding: none;
+}
+
+.title {
+  color: #4ad509;
+  font-size: 36px;
+  text-align: center;
+  letter-spacing: .2rem;
+}
+
+.header {
+  background: #222;
+  min-width: 100%;
+  margin-bottom: 40px;
+}
+
+.form_cadastro_tarefa label {
+  font-size: 16px;
+  margin: 15px 0;
+}
+
+.form_cadastro_tarefa input, .form_cadastro_tarefa .btn, button.btn_consulta, .btn {
+  padding: 15px;
+  font-size: 16px;
+  color: white;
+  background: transparent;
+  border: 1px solid #4ad509;
+  border-radius: 1rem;
+  transition: .3s ease;
+  max-width: 500px;
+  font-family: monospace;
+}
+
+.form_cadastro_tarefa input:focus, .form_cadastro_tarefa .btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px #4ad509;
+}
+
+.form_cadastro_tarefa input[type="submit"], .form_cadastro_tarefa input[type="reset"], .form_cadastro_tarefa .btn {
+  margin-top: 15px;
+}
+
+.form_cadastro_tarefa input[type="submit"]:hover, .form_cadastro_tarefa input[type="reset"]:hover, .form_cadastro_tarefa .btn:hover, button.btn_consulta:hover {
+  background: #2c7c05;
+  cursor: pointer;
+}
+
+button.btn_consulta {
+  margin-top: 20px;
+}
+
+/* Estilo tabela consulta */
+
+.tabela_consulta {
+  border: 1px solid #4ad509;
+  font-size: 16px;
+}
+
+
+.tabela_consulta td, .tabela_consulta th {
+  border: 1px solid #4ad509;
+  padding: 10px;
+}
+
+.tabela_consulta td a.editar {
+  color: aqua;
+}
+
+.tabela_consulta td a.excluir {
+  color: red;
+}
+
+.tabela_consulta tr:hover {
+  background: #2c7c05;
+}
+
+button.btn_consulta {
+  cursor: pointer;
+  border: 1px solid #4ad509;
+  padding: 10px;
+  margin: 15px 10px;
+  min-width: 160px;
+}
+
+.btn_consulta.btn_consulta_excluir:hover {
+  background: red;
+}
+
+.btns_consulta {
+  min-width: 100%;
+}
+
+.title_excluir {
+  color: #4ad509;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.msg_aviso {
+  font-size: 18px;
+  font-weight: 500;
+  color: red;
+  align-self: flex-start;
+  padding-left: 20px;
+}
+
+nav.menu {
+  min-width: 100%;
+  height: 80px;
+  padding: 20px;
+  background-color: #21afc2;
+}
+
+nav.menu ul.menu_lista {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+nav.menu ul.menu_lista li.menu_lista_item {
+  font-size: 18px; 
+  padding-right: 20px;
+}
+
+nav.menu ul.menu_lista li.menu_lista_item a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  display: inline-block;
+}
+
+
+
+
+
+
+
