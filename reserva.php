@@ -10,7 +10,7 @@ session_start();
 if (is_Null(@$_SESSION["login"])) {
 
   echo "Você deve fazer o Login<br><br>";
-  echo "<a href=login.php>Página de Login</a>" ;
+  echo "<a href=login.php>Página de Login</a>";
   die() ;
 } else {
 
@@ -64,9 +64,8 @@ if (is_Null(@$_SESSION["login"])) {
         <label for="descricao">Breve descrição sobre a reserva</label>
         <textarea name="desc" cols="6" rows="6"></textarea>
 
-        <input type="submit" value="Gravar">
-        <input type="button" value="Consultar" onclick="location.href='consultageral.php'" class="btn">
-        <input type="button" value="Página inicial" onclick="location.href='index.html'" class="btn">
+        <input type="submit" value="Reservar">
+        <input type="button" value="Página inicial" onclick="location.href='home-admin.php'" class="btn">
 
       </form>
 

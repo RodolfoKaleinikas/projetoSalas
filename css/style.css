@@ -25,6 +25,10 @@ body {
   margin-bottom: 40px;
 }
 
+section.section_form {
+  margin-top: 120px;
+}
+
 .form_cadastro_tarefa label {
   font-size: 16px;
   margin: 15px 0;
@@ -121,6 +125,10 @@ nav.menu {
   height: 80px;
   padding: 20px;
   background-color: #21afc2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 nav.menu ul.menu_lista {
@@ -128,6 +136,7 @@ nav.menu ul.menu_lista {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: center;
 }
 
 nav.menu ul.menu_lista li.menu_lista_item {

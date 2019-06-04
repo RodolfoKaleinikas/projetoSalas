@@ -7,8 +7,6 @@
 
 	$query = $mysqli->query($comando);
 
-	// var_dump($query);
-
 	session_start();
 	if (is_Null(@$_SESSION["login"])) {
 
@@ -17,21 +15,36 @@
 		die() ;
 	} else {
 
+		$usuario  = $_SESSION["login"];
+		$comando2 = "SELECT * FROM pessoas where pessoas.email = '$usuario'";
+		$query2   = $mysqli->query($comando2);
+
+
 ?>
 
 <nav class="menu">
+	<p>Seja bem vindo, 
+	<?php  
+		while($dados2=mysqli_fetch_object($query2)) {
+			echo "<span>" . $dados2->nome . " ";
+			echo $dados2->sobrenome . "</span>";
+		}
+	?>
+	
+	</p>
 	<ul class="menu_lista">
 		<li class="menu_lista_item"><a href="reserva.php">Reservar</a></li>
+		<li class="menu_lista_item"><a href="cadastra-usuario.php">Cadastrar usuário</a></li>
 		<li class="menu_lista_item"><a href="#">Sair</a></li>
 	</ul>
 </nav>
 
-<section class="container">
+<section class="container section_form">
 	<div class="row">
 		<div class="col-12 d-flex flex-column justify-content-center align-items-center">
 			<table class="tabela_consulta">
 				<tr>
-					<th>Id</th> 
+					<th>id reserva</th>
 					<th>Data da Reserva</th>
 					<th>Nome</th>
 					<th>Descrição</th>
@@ -42,11 +55,17 @@
 			<?php 
 
 				while($dados=mysqli_fetch_object($query)) {
-					$id = $dados->id;
-					echo "<tr><td>" . $dados->id . "</td>";
+					$id = $dados->id_reserva;
+					echo "<td>" . $dados->id_reserva . "</td>";
 					echo "<td>" . $dados->dt_reserva . "</td>";
 					echo "<td>" . $dados->nome . "</td>";
-					echo "<td>" . $dados->descricao . "</td>";
+					if ($dados->opcao_reserva === "op1") {
+						echo "<td>8hs - 10hs</td>";
+					} elseif ($dados->opcao_reserva === "op2") {
+						echo "<td>10hs - 12hs</td>";
+					} elseif ($dados->opcao_reserva === "op3") {
+						echo "<td>14hs - 16hs</td>";
+					}
 					echo "<td><a class='editar' href='editar.php?id=$id'>Editar</a></td>";
 					echo "<td><a class='excluir' href='excluir.php?id=$id'>Excluir</a></td></tr>";
 				}
@@ -57,9 +76,6 @@
 			?>
 
 			<div class="d-flex justify-content-center btns_consulta">
-				<button onclick="location.href='index.html'" class="btn_consulta" href="index.html">Página inicial</button>
-				<!-- <button onclick="location.href='editar.php?id='.$id" class="btn_consulta" href="index.html">Editar</button> -->
-				<!-- <button onclick="location.href='excluir.php?id='.$id" class="btn_consulta btn_consulta_excluir" href="index.html">Excluir</button> -->
 			</div>
 		</div>
 	</div>

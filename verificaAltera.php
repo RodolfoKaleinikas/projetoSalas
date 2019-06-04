@@ -10,6 +10,7 @@ if (is_Null(@$_SESSION["login"])) {
   die();
 } else {
 
+  $id_reserva = $_POST["id_reserva"];
   $op_sala = $_POST["opcao_sala"];
   $op_reserva = $_POST["opcao_reserva"];
   $dt_reserva = $_POST["data_reserva"];
@@ -17,6 +18,7 @@ if (is_Null(@$_SESSION["login"])) {
   $data_nula = "0000-00-00";
   $data_atual = date("Y-m-d");
   $reservas_existentes = 0;
+
 
   if(empty($op_sala) || empty($op_reserva) || empty($dt_reserva)) {
     header("location: reserva.php?msg=campo_vazio");
@@ -28,6 +30,7 @@ if (is_Null(@$_SESSION["login"])) {
   $query = $mysqli->query($query);
 
   while($dados=mysqli_fetch_object($query)) {
+    $id_reservas[]     = $dados->id_reserva;
     $datas_reservas[]  = $dados->dt_reserva;
     $opcoes_reservas[] = $dados->opcao_reserva;
     $ids_salas[]       = $dados->sala_id;
@@ -46,7 +49,9 @@ if (is_Null(@$_SESSION["login"])) {
     
     if ($op_reserva == $opcoes_reservas[$i]) {
       if ($dt_reserva == $datas_reservas[$i]) {
-        $reservas_existentes += 1;
+        if ($id_reserva != $id_reservas[$i]) {
+          $reservas_existentes += 1;
+        }
       }
     } 
 
@@ -56,8 +61,10 @@ if (is_Null(@$_SESSION["login"])) {
     header("location:reserva.php?msg=opcao_existente");
     exit;
   } else {
-      $sql = "INSERT INTO reservas(dt_reserva, opcao_reserva, descricao, sala_id) VALUES ('$dt_reserva', '$op_reserva', '$desc', '$op_sala' )";
-      $sql = $mysqli->query($sql);
+      // $sql = "INSERT INTO reservas(dt_reserva, opcao_reserva, descricao, sala_id) VALUES ('$dt_reserva', '$op_reserva', '$desc', '$op_sala' )";
+      // $sql = $mysqli->query($sql);
+      $sql = "UPDATE reservas SET dt_reserva='$dt_reserva', opcao_reserva='$op_reserva', descricao='$desc', sala_id='$op_sala' WHERE id_reserva=$id_reserva";
+      $query = $mysqli->query($sql);
   }
 
 
@@ -68,7 +75,7 @@ if (is_Null(@$_SESSION["login"])) {
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <h1 class="title">Cadastro de reservas</h1>
+          <h1 class="title">Edição de reservas</h1>
         </div>
       </div>
     </div>
@@ -77,7 +84,7 @@ if (is_Null(@$_SESSION["login"])) {
   <section class="container">
     <div class="row">
       <div class="col-12">
-        <h2 class="title_excluir">Reserva realizada com sucesso</h2>
+        <h2 class="title_excluir">Reserva editada com sucesso</h2>
       </div>
     </div>
   </section>
