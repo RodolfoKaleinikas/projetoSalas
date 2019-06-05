@@ -32,7 +32,6 @@
           <input name="txtemail" id="txtemail" type="text">
           <label for="txtsenha">Senha</label>
           <input name="txtsenha" id="txtsenha" type="password">
-          <input type="reset" value="Limpar">
           <input type="submit" value="Logar">
           <input value="Esqueci a senha" type="button" onclick="location.href='esqueciSenha.php'" class="btn">
         </form>

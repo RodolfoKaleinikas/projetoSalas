@@ -52,11 +52,29 @@ if (is_Null(@$_SESSION["login"])) {
   }
 
 
-  $insert_pessoas = "INSERT INTO pessoas(nome, sobrenome, email, telefone, departamento) VALUES ('$nome_usuario', '$sobrenome_usuario', '$email_usuario', '$fone_usuario', '$departamento_usuario' )";
-  $insert_usuarios = "INSERT INTO usuarios(nome, senha, acesso) VALUES ('$email_usuario', '$senha_usuario', '$tipo_usuario')";
+  // ===================================================
+  // ==========INSERT EM USUARIOS E PESSOAS=============
+  // ===================================================
 
-  $query1 = $mysqli->query($insert_pessoas);
+
+
+  $insert_pessoas = "INSERT INTO pessoas(nome, sobrenome, email, telefone, departamento) VALUES ('$nome_usuario', '$sobrenome_usuario', '$email_usuario', '$fone_usuario', '$departamento_usuario' )";
+  // $query1 = $mysqli->query($insert_pessoas);
+
+  if (mysqli_query($mysqli, $insert_pessoas)) {
+    $ultimo_id = mysqli_insert_id($mysqli);
+    echo "Ultimo id cadastrado: " . $ultimo_id;
+  } else {
+    echo "Erro: " . $insert_pessoas . "<br>" . mysqli_error($mysqli);
+    exit;
+  }
+
+
+  $insert_usuarios = "INSERT INTO usuarios(nome, senha, acesso, pessoa_id) VALUES ('$email_usuario', '$senha_usuario', '$tipo_usuario', '$ultimo_id')";
   $query2 = $mysqli->query($insert_usuarios);
+
+  mysqli_close($mysqli);
+
 
 ?>
 
