@@ -26,12 +26,12 @@ while ($dados=mysqli_fetch_object($query)) {
 $query->free();
 
 if (!empty($nome)) {
-	if ($acesso == 0) {
+	if ($acesso == 1) {
 		session_start();
 		$_SESSION[ "login" ] = $nome;
 		header('location: home-admin.php');
 
-	} elseif ($acesso == 1) {
+	} elseif ($acesso == 2) {
 		session_start();
 		$_SESSION["login"] = $nome;
 		header('location: home-funcionario.php');
