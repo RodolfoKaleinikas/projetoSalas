@@ -16,9 +16,11 @@
 	} else {
 
 		$usuario  = $_SESSION["login"];
+		$acesso  = $_SESSION["acesso"];
+		$pessoa_id  = $_SESSION["pessoa_id"];
+
 		$comando2 = "SELECT * FROM pessoas where pessoas.email = '$usuario'";
 		$query2   = $mysqli->query($comando2);
-
 
 ?>
 
@@ -26,16 +28,15 @@
 	<p>Seja bem vindo, 
 	<?php  
 		while($dados2=mysqli_fetch_object($query2)) {
-			echo "<span>" . $dados2->nome . " ";
-			echo $dados2->sobrenome . "</span>";
+			echo "<span>" . $dados2->nome . "</span>";
 		}
 	?>
-	
 	</p>
+
 	<ul class="menu_lista">
 		<li class="menu_lista_item"><a href="reserva.php">Reservar</a></li>
 		<li class="menu_lista_item"><a href="cadastra-usuario.php">Cadastrar usuário</a></li>
-		<li class="menu_lista_item"><a href="#">Sair</a></li>
+		<li class="menu_lista_item"><a href="logout.php">Sair</a></li>
 	</ul>
 </nav>
 
