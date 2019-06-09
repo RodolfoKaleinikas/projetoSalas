@@ -13,14 +13,14 @@ if(empty($email) || empty($senha)) {
 }
 
 
-$executa = " select * from usuarios where nome='$email' and senha='$senha'";
+$executa = " select * from usuarios where login_user='$email' and senha='$senha'";
 
 $query = $mysqli->query($executa);
 
 
 while ($dados=mysqli_fetch_object($query)) {
 
-	$nome = $dados->nome;
+	$nome = $dados->login_user;
 	$acesso = $dados->acesso;
 	$pessoa_id = $dados->pessoa_id;
 }

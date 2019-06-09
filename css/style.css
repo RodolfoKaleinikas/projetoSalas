@@ -46,6 +46,10 @@ section.section_form {
   font-family: monospace;
 }
 
+.btn {
+  cursor: pointer;
+}
+
 .form_cadastro_tarefa input:focus, .form_cadastro_tarefa .btn:focus {
   outline: none;
   box-shadow: 0 0 0 3px #4ad509;
