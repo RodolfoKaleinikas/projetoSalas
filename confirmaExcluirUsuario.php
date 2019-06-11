@@ -12,9 +12,12 @@ if (is_Null(@$_SESSION["login"])) {
 
   $pessoa_id = $_POST["pessoa_id"];
 
-  $sql = "DELETE pessoas, usuarios FROM pessoas INNER JOIN usuarios ON usuarios.pessoa_id = pessoas.pessoa_id  WHERE pessoas.pessoa_id='$pessoa_id'";
+  // $sql = "DELETE pessoas, usuarios FROM pessoas INNER JOIN usuarios ON usuarios.pessoa_id = pessoas.pessoa_id  WHERE pessoas.pessoa_id='$pessoa_id'";
 
-  $query_pessoas = $mysqli->query($sql);
+  $sql1 = "DELETE FROM usuarios where pessoa_id = '$pessoa_id'";
+  $query_usuarios = $mysqli->query($sql1);
+  $sql2 = "DELETE FROM pessoas where pessoa_id = '$pessoa_id'";
+  $query_pessoas = $mysqli->query($sql2);
 
 ?>
 

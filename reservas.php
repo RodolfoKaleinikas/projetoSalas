@@ -3,7 +3,7 @@
 	include "conecta_banco.php";
 	include "header.php";
 
-	$comando = "SELECT * from usuarios";
+	$comando = "select * from reservas, salas where salas.id = reservas.sala_id";
 
 	$query = $mysqli->query($comando);
 
@@ -45,9 +45,10 @@
 		<div class="col-12 d-flex flex-column justify-content-center align-items-center">
 			<table class="tabela_consulta">
 				<tr>
-					<th>Login</th>
-					<th>Senha</th>
-					<th>Acesso</th>
+					<th>id reserva</th>
+					<th>Data da Reserva</th>
+					<th>Nome</th>
+					<th>Descrição</th>
 					<th>Editar</th>
 					<th>Excluir</th>
 				</tr>
@@ -55,16 +56,19 @@
 			<?php 
 
 				while($dados=mysqli_fetch_object($query)) {
-					$id = $dados->pessoa_id;
-					echo "<td>" . $dados->login_user . "</td>";
-          echo "<td>" . $dados->senha . "</td>";
-          if ($dados->acesso == 1) {
-            echo "<td>Admin</td>";
-          } else {
-            echo "<td>Funcionário</td>";
-          }
-					echo "<td><a class='editar' href='editar_usuario.php?id=$id'>Editar</a></td>";
-					echo "<td><a class='excluir' href='excluir_usuario.php?id=$id'>Excluir</a></td></tr>";
+					$id = $dados->id_reserva;
+					echo "<td>" . $dados->id_reserva . "</td>";
+					echo "<td>" . $dados->dt_reserva . "</td>";
+					echo "<td>" . $dados->nome . "</td>";
+					if ($dados->opcao_reserva === "op1") {
+						echo "<td>8hs - 10hs</td>";
+					} elseif ($dados->opcao_reserva === "op2") {
+						echo "<td>10hs - 12hs</td>";
+					} elseif ($dados->opcao_reserva === "op3") {
+						echo "<td>14hs - 16hs</td>";
+					}
+					echo "<td><a class='editar' href='editar.php?id=$id'>Editar</a></td>";
+					echo "<td><a class='excluir' href='excluir.php?id=$id'>Excluir</a></td></tr>";
 				}
 
 				$query->free();
@@ -73,7 +77,6 @@
 			?>
 
 			<div class="d-flex justify-content-center btns_consulta">
-				<button onclick="location.href='cadastra-usuario.php'" class="mt-4 btn">Adicionar Usuário +</button>
 			</div>
 		</div>
 	</div>
