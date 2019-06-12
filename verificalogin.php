@@ -23,6 +23,7 @@ while ($dados=mysqli_fetch_object($query)) {
 	$nome = $dados->login_user;
 	$acesso = $dados->acesso;
 	$pessoa_id = $dados->pessoa_id;
+	$id = $dados->id;
 }
 $query->free();
 
@@ -32,6 +33,7 @@ if (!empty($nome)) {
 		$_SESSION[ "login" ] = $nome;
 		$_SESSION[ "acesso" ] = $acesso;
 		$_SESSION[ "pessoa_id" ] = $pessoa_id;
+		$_SESSION[ "id_user" ] = $id;
 		header('location: home-admin.php');
 
 	} elseif ($acesso == 2) {
@@ -39,6 +41,7 @@ if (!empty($nome)) {
 		$_SESSION["login"] = $nome;
 		$_SESSION[ "acesso" ] = $acesso;
 		$_SESSION[ "pessoa_id" ] = $pessoa_id;
+		$_SESSION[ "id_user" ] = $id;
 		header('location: home-funcionario.php');
 		}
 	} else {

@@ -18,6 +18,7 @@
 		$usuario  = $_SESSION["login"];
 		$acesso  = $_SESSION["acesso"];
 		$pessoa_id  = $_SESSION["pessoa_id"];
+		$id_user = $_SESSION[ "id_user" ];
 
 		$comando2 = "SELECT * FROM pessoas where pessoas.email = '$usuario'";
 		$query2   = $mysqli->query($comando2);
@@ -25,11 +26,9 @@
 ?>
 
 <nav class="menu">
-	<p>Seja bem vindo, 
+	<p>Administrador  
 	<?php  
-		while($dados2=mysqli_fetch_object($query2)) {
-			echo "<span>" . $dados2->nome . "</span>";
-		}
+
 	?>
 	</p>
 
@@ -43,7 +42,13 @@
 <section class="container section_form">
 	<div class="row">
 		<div class="col-12 d-flex flex-column justify-content-center align-items-center">
-				<h1 class="titulo_home">Home admin</h1>
+				<h1 class="titulo_home">
+				<?php
+					while($dados2=mysqli_fetch_object($query2)) {
+						echo "<span>" . $dados2->nome . "</span>";
+					}
+				?>
+				, seja bem vindo ao rent a room!</h1>
 			<div class="d-flex justify-content-center btns_consulta">
 			</div>
 		</div>

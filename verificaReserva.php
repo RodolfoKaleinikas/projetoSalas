@@ -13,6 +13,7 @@ if (is_Null(@$_SESSION["login"])) {
   $op_sala = $_POST["opcao_sala"];
   $op_reserva = $_POST["opcao_reserva"];
   $dt_reserva = $_POST["data_reserva"];
+  $id_user = $_POST["id_usuario"];
   $desc = $_POST["desc"];
   $data_nula = "0000-00-00";
   $data_atual = date("Y-m-d");
@@ -33,65 +34,50 @@ if (is_Null(@$_SESSION["login"])) {
     $ids_salas[]       = $dados->sala_id;
   }
 
-  $tamanho = sizeof($datas_reservas);
+  if (@$datas_reservas != null) {
 
-  for ($i=0; $i < $tamanho; $i++) { 
-    if ($dt_reserva < $data_atual) {
-      header("location:reserva.php?msg=data_invalida");
+    $tamanho = sizeof($datas_reservas);
+
+    for ($i=0; $i < $tamanho; $i++) { 
+      if ($dt_reserva < $data_atual) {
+        header("location:reserva.php?msg=data_invalida");
+        exit;
+      } elseif ($dt_reserva === $data_nula) {
+        header("location:reserva.php?msg=data_nula");
+        exit;
+      } 
+      
+      if ($op_reserva == $opcoes_reservas[$i]) {
+        if ($dt_reserva == $datas_reservas[$i]) {
+          $reservas_existentes += 1;
+        }
+      } 
+
+    }
+
+    if($reservas_existentes > 0) {
+      header("location:reserva.php?msg=opcao_existente");
       exit;
-    } elseif ($dt_reserva === $data_nula) {
-      header("location:reserva.php?msg=data_nula");
-      exit;
-    } 
-    
-    if ($op_reserva == $opcoes_reservas[$i]) {
-      if ($dt_reserva == $datas_reservas[$i]) {
-        $reservas_existentes += 1;
-      }
-    } 
+    } else {
+        $sql = "INSERT INTO reservas(dt_reserva, opcao_reserva, descricao, usuario_id, sala_id) VALUES ('$dt_reserva', '$op_reserva', '$desc', '$id_user', '$op_sala' )";
+        $sql = $mysqli->query($sql);
+    }
 
-  }
+    include "reserva_ok.php";
 
-  if($reservas_existentes > 0) {
-    header("location:reserva.php?msg=opcao_existente");
-    exit;
+
+
   } else {
-      $sql = "INSERT INTO reservas(dt_reserva, opcao_reserva, descricao, sala_id) VALUES ('$dt_reserva', '$op_reserva', '$desc', '$op_sala' )";
-      $sql = $mysqli->query($sql);
+    $sql = "INSERT INTO reservas(dt_reserva, opcao_reserva, descricao, usuario_id, sala_id) VALUES ('$dt_reserva', '$op_reserva', '$desc', '$id_user', '$op_sala' )";
+    $sql = $mysqli->query($sql);
+    include "reserva_ok.php";
   }
 
-
-?>
-
-
-  <header class="header"> 
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <h1 class="title">Cadastro de reservas</h1>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <section class="container">
-    <div class="row">
-      <div class="col-12">
-        <h2 class="title_excluir">Reserva realizada com sucesso</h2>
-      </div>
-    </div>
-  </section>
-
-  <div class="d-flex justify-content-center">
-    <button onclick="location.href='home-admin.php'" class="btn">Página inicial</button>
-  </div>
-
-  </body>
-</html>
-
-<?php
 }
+
+
 ?>
+
 
 
 

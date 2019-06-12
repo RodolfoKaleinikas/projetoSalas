@@ -18,6 +18,8 @@
 		$usuario  = $_SESSION["login"];
 		$acesso  = $_SESSION["acesso"];
 		$pessoa_id  = $_SESSION["pessoa_id"];
+		$id_user = $_SESSION[ "id_user" ];
+
 
 		$comando2 = "SELECT * FROM pessoas where pessoas.email = '$usuario'";
 		$query2   = $mysqli->query($comando2);
@@ -35,7 +37,7 @@
 
 	<ul class="menu_lista">
 		<li class="menu_lista_item"><a href="reservas.php">Reservas</a></li>
-		<li class="menu_lista_item"><a href="usuarios.php">Usuários</a></li>
+		<li class="menu_lista_item <?php echo $acesso == 2 ? "d-none" : "" ?>"><a href="usuarios.php">Usuários</a></li>
 		<li class="menu_lista_item"><a href="logout.php">Sair</a></li>
 	</ul>
 </nav>
@@ -57,6 +59,7 @@
 
 				while($dados=mysqli_fetch_object($query)) {
 					$id = $dados->id_reserva;
+					$usuario_id = $dados->usuario_id;
 					echo "<td>" . $dados->id_reserva . "</td>";
 					echo "<td>" . $dados->dt_reserva . "</td>";
 					echo "<td>" . $dados->nome . "</td>";
@@ -67,8 +70,17 @@
 					} elseif ($dados->opcao_reserva === "op3") {
 						echo "<td>14hs - 16hs</td>";
 					}
-					echo "<td><a class='editar' href='editar.php?id=$id'>Editar</a></td>";
-					echo "<td><a class='excluir' href='excluir.php?id=$id'>Excluir</a></td></tr>";
+					if ($acesso == 1) {
+						echo "<td><a class='editar' href='editar.php?id=$id'>Editar</a></td>";
+						echo "<td><a class='excluir' href='excluir.php?id=$id'>Excluir</a></td></tr>";
+					} elseif ($acesso == 2 && $usuario_id === $id_user) {
+						echo "<td><a class='editar' href='editar.php?id=$id'>Editar</a></td>";
+						echo "<td><a class='excluir' href='excluir.php?id=$id'>Excluir</a></td></tr>";
+					} else {
+						echo "<td>Sem permissão</td>";
+						echo "<td>Sem permissão</td></tr>";
+					}
+
 				}
 
 				$query->free();
@@ -77,6 +89,7 @@
 			?>
 
 			<div class="d-flex justify-content-center btns_consulta">
+				<button onclick="location.href='reserva.php'" class="mt-4 btn">Reservar uma sala +</button>
 			</div>
 		</div>
 	</div>

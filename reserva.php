@@ -14,6 +14,8 @@ if (is_Null(@$_SESSION["login"])) {
   die() ;
 } else {
 
+  $id_user = $_SESSION[ "id_user" ];
+
 
 ?>
 
@@ -33,6 +35,7 @@ if (is_Null(@$_SESSION["login"])) {
   <div class="row">
     <div class="col-12 d-flex justify-content-center flex-column align-items-center">
       <form name="form" id="formulario" action="verificaReserva.php" method="POST" class="col-12 d-flex justify-content-center flex-column form_cadastro_tarefa">
+        <input type="hidden" name="id_usuario" value="<?php echo $id_user; ?>">
 
         <label for="op_sala">Escolha a sala</label>
         <select id="op_sala" name="opcao_sala">
